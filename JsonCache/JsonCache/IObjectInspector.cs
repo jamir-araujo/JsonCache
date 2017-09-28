@@ -13,6 +13,6 @@
 
     public interface IValueInspector<T> where T : class
     {
-        void InspectObject(T value, Found<T> objectFound, DependencyFound<T> dependencyFound);
+        void InspectObject(T value, Found<T> found, DependencyFound<T> dependencyFound);
     }
 }
