@@ -1,14 +1,13 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JsonCache
 {
-    public class JObjectInspector : IObjectInspector<JObject>
+    public class JObjectInspector : IValueInspector<JObject>
     {
-        public void InspectObject(JObject value)
+        public void InspectObject(JObject value, Found<JObject> objectFound, DependencyFound<JObject> dependencyFound)
         {
+            throw new NotImplementedException();
         }
     }
 }
