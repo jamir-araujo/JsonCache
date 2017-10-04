@@ -4,7 +4,7 @@
     {
         public abstract string Key { get; }
 
-        public abstract T GetValue(T owner);
+        protected abstract T GetValue(T owner);
         public abstract void SetValeu(T owner, object value);
     }
 
@@ -14,5 +14,11 @@
     public interface IValueInspector<T> where T : class
     {
         void InspectObject(T value, Found<T> found, DependencyFound<T> dependencyFound);
+    }
+
+    public interface IConvention<T>
+    {
+        bool FitsConvetion(T value);
+        string CreateKey(T value);
     }
 }

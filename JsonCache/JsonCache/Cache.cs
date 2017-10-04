@@ -7,11 +7,13 @@ namespace JsonCache
     public class Cache<T> where T : class
     {
         private IValueInspector<T> _inspector;
+        private readonly IConvention<T> _convention;
         private readonly IMemoryCache _memoryCache;
 
-        public Cache(IMemoryCache memoryCache, IValueInspector<T> inspector)
+        public Cache(IMemoryCache memoryCache, IValueInspector<T> inspector, IConvention<T> convention)
         {
             _inspector = inspector;
+            _convention = convention;
             _memoryCache = memoryCache;
         }
 
@@ -85,10 +87,10 @@ namespace JsonCache
             }
         }
 
-        private string CreateKeyForDependencies(string key) => string.Empty;
+        private string CreateKeyForDependencies(string key) => $"{key} -> Dependencies";
 
-        private string CreateKey(T value) => string.Empty;
+        private string CreateKey(T value) => _convention.CreateKey(value);
 
-        private bool FitsConvention(T value) => true;
+        private bool FitsConvention(T value) => _convention.FitsConvetion(value);
     }
 }
