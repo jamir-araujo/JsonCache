@@ -2,15 +2,15 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace JsonCache
+namespace GraphCache
 {
     public class Cache<T> where T : class
     {
-        private IValueInspector<T> _inspector;
+        private IInspector<T> _inspector;
         private readonly IConvention<T> _convention;
         private readonly IMemoryCache _memoryCache;
 
-        public Cache(IMemoryCache memoryCache, IValueInspector<T> inspector, IConvention<T> convention)
+        public Cache(IMemoryCache memoryCache, IInspector<T> inspector, IConvention<T> convention)
         {
             _inspector = inspector;
             _convention = convention;
@@ -19,7 +19,7 @@ namespace JsonCache
 
         public void Set(T value, TimeSpan expiry)
         {
-            _inspector.InspectObject(value, Found, (foundValeu, dependency) =>
+            _inspector.Inspect(value, Found, (foundValeu, dependency) =>
             {
                 if (FitsConvention(value))
                 {
