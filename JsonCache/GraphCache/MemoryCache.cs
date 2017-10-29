@@ -4,13 +4,13 @@ using System.Collections.Concurrent;
 
 namespace GraphCache
 {
-    public class Cache<T> where T : class
+    public class MomoryCache<T> where T : class
     {
         private IInspector<T> _inspector;
         private readonly IConvention<T> _convention;
         private readonly IMemoryCache _memoryCache;
 
-        public Cache(IMemoryCache memoryCache, IInspector<T> inspector, IConvention<T> convention)
+        public MomoryCache(IMemoryCache memoryCache, IInspector<T> inspector, IConvention<T> convention)
         {
             _inspector = inspector;
             _convention = convention;
@@ -21,9 +21,9 @@ namespace GraphCache
         {
             _inspector.Inspect(value, Found, (foundValeu, dependency) =>
             {
-                if (FitsConvention(value))
+                if (FitsConvention(foundValeu))
                 {
-                    var key = CreateKey(value);
+                    var key = CreateKey(foundValeu);
 
                     StoreKeyDependency(key, dependency, expiry);
                 }
